@@ -52,7 +52,8 @@ __device__ __forceinline__ bool check_pixel_inside(const scalar_t *w) {
 
 template <typename scalar_t>
 __device__ __forceinline__ void barycentric_clip(scalar_t *w) {
-    for (int k = 0; k < 3; k++) w[k] = max(min(w[k], 1.), 0.);
+    //for (int k = 0; k < 3; k++) w[k] = max(min(w[k], 1.), 0.);
+    for (int k = 0; k < 3; k++) w[k] = max(min(w[k], 1 - 1e-5), 1e-5);
     const scalar_t w_sum = max(w[0] + w[1] + w[2], 1e-5);
     for (int k = 0; k < 3; k++) w[k] /= w_sum;
 }
